@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manage Incident </title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    color: white;
+    padding: 5px 20px;
+  }
+
+  .header h1 {
+    color: black; 
+    font-size: xx-large;
+    font-family: 'Lucida Sans';
+  }
+  .main-container {
+    display: flex;
+  }
+  .sidebar {
+  width: 200px;
+  background-color: #2F4F4F;
+  color: #EDEDED;
+  padding: 20px; /* Updated padding for consistent spacing */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box; /* Ensures padding and border are included in the width */
+}
+
+.sidebar a {
+  color: #EDEDED;
+  text-decoration: none;
+  padding: 10px 20px; /* Consistent padding */
+  display: block;
+  border-bottom: 2px solid #4F5B66;
+  box-sizing: border-box; /* Ensures padding and border are included in the total height */
+}
+
+.sidebar a:hover {
+  background-color: #263238;
+}
+
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  .logout-btn {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  .logout-btn:hover {
+    background-color: #ba2d2d;
+  }
+
+  .dropdown {
+  position: relative;
+  display: block;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px; /* Makes the button bigger */
+  background-color: rgb(54, 136, 195); /* Sets the button color to sky blue */
+  color: white; /* Sets the text color to white */
+  text-decoration: none; /* Removes the underline from the anchor tag */
+  font-size: 16px; /* Increases the font size */
+  border: none; /* Removes the border */
+  border-radius: 5px; /* Adds rounded corners to the button */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.button:hover {
+  background-color: rgb(11, 44, 94); /* Changes color on hover for visual feedback */
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>SOCker</h1>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<div class="main-container">
+    <div class="sidebar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="manage.html">Manage Incident</a>
+        <a href="viewreports.html">View Reports</a>
+    </div>
+
+  <div class="content">
+    <h1>Manage Incident</h1>
+    <!-- Content goes here -->
+    <a href="createinc.html"><button class="button">Create Incident</button></a>
+    <a href="viewinc.html"><button class="button">View/Manage Incident</button></a>
+  </div>
+</div>
+
+<script>
+    function logout() {
+      // Manipulate the browser history
+      window.history.replaceState(null, null, window.location.href);
+      window.history.pushState({loggedOut: true}, null, "login.html");
+    
+      // Use this to listen for a back navigation after logout
+      window.onpopstate = function(event) {
+        if(event.state && event.state.loggedOut) {
+          window.location.href = 'login.html';
+        }
+      };
+    
+      // Redirect to login.html
+      window.location.href = 'login.html';
+    }
+    </script>
+
+</body>
+</html>

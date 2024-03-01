@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Incident</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    color: white;
+    padding: 5px 20px;
+  }
+
+  .header h1 {
+    color: black; 
+    font-size: xx-large;
+    font-family: 'Lucida Sans';
+  }
+  .main-container {
+    display: flex;
+  }
+  .sidebar {
+  width: 200px;
+  background-color: #2F4F4F;
+  color: #EDEDED;
+  padding: 20px; /* Updated padding for consistent spacing */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box; /* Ensures padding and border are included in the width */
+}
+
+.sidebar a {
+  color: #EDEDED;
+  text-decoration: none;
+  padding: 10px 20px; /* Consistent padding */
+  display: block;
+  border-bottom: 2px solid #4F5B66;
+  box-sizing: border-box; /* Ensures padding and border are included in the total height */
+}
+
+.sidebar a:hover {
+  background-color: #263238;
+}
+
+  .content {
+    flex-grow: 1;
+    padding: 20px;
+  }
+  .logout-btn {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  .logout-btn:hover {
+    background-color: #ba2d2d;
+  }
+
+  .dropdown {
+  position: relative;
+  display: block;
+}
+
+.form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group select {
+            width: 20%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .form-group button {
+            padding: 10px 20px;
+            background-color: skyblue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color:darkblue;
+        }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>SOCker</h1>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<div class="main-container">
+    <div class="sidebar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="manage.html">Manage Incident</a>
+        <a href="viewrep.html">View Reports</a>
+    </div>
+
+  <div class="content">
+    <h1>Create an Incident</h1>
+    <form id="incidentForm">
+      <div class="form-group">
+          <label for="incidentType">Select type of incident (select one):</label>
+          <select id="incidentType" name="incidentType">
+              <option value="phishing">Phishing Campaign</option>
+              <option value="malware">Malware Outbreak</option>
+              <option value="dos">DoS/DDoS</option>
+              <option value="darkweb">Information Disclosure on Darkweb</option>
+          </select>
+      </div>
+      <div class="form-group">
+          <button type="submit">Create</button>
+      </div>
+  </form>
+  </div>
+</div>
+
+<script>
+  document.getElementById('incidentForm').onsubmit = function(event) {
+      event.preventDefault(); // Prevent the form from submitting in the traditional way
+      var incidentType = document.getElementById('incidentType').value;
+      if (incidentType === 'phishing') {
+          window.location.href = 'createphishing.html';
+      }
+      else if (incidentType === 'malware'){
+          window.location.href = 'createmalware.html';
+      }
+      else if (incidentType === 'ddos'){
+          window.location.href = 'createddos.html';
+      }
+      else if (incidentType === 'darkweb'){
+          window.location.href = 'createdarkweb.html';
+      }
+  };
+</script>
+
+
+
+<script>
+    function logout() {
+  console.log('Logout function called');
+  window.history.replaceState(null, null, window.location.href);
+  window.history.pushState({loggedOut: true}, null, "login.html");
+
+  window.onpopstate = function(event) {
+    console.log('Back navigation attempted after logout');
+    if(event.state && event.state.loggedOut) {
+      window.location.href = 'login.html';
+    }
+  };
+
+  window.location.href = 'login.html';
+}
+</script>
+
+</body>
+</html>

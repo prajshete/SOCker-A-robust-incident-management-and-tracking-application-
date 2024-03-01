@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Phishing Campaign Incident</title>
+
+<!-----------------CSS--------------->
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    color: white;
+    padding: 5px 20px;
+   
+  }
+
+  .header h1 {
+    color: black; 
+    font-size: xx-large;
+    font-family: 'Lucida Sans';
+  }
+  .main-container {
+    display: flex;
+  }
+  .sidebar {
+  width: 200px;
+  background-color: #2F4F4F;
+  color: #EDEDED;
+  padding: 20px; /* Updated padding for consistent spacing */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box; /* Ensures padding and border are included in the width */
+  
+  }
+
+.sidebar a {
+  color: #EDEDED;
+  text-decoration: none;
+  padding: 10px 20px; /* Consistent padding */
+  display: block;
+  border-bottom: 2px solid #4F5B66;
+  box-sizing: border-box; /* Ensures padding and border are included in the total height */
+  
+}
+
+.sidebar a:hover {
+  background-color: #263238;
+}
+
+  .content {
+    flex-grow: 1;
+    padding-left: 60px;
+  }
+  .logout-btn {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  .logout-btn:hover {
+    background-color: #ba2d2d;
+  }
+
+  .dropdown {
+  position: relative;
+  display: block;
+}
+
+.form-group {
+    margin-bottom: 20px;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  input[type=text], input[type=number], select, textarea {
+    width: 40%;
+    padding: 8px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  .multi-select, .multi-text {
+    height: auto;
+    min-height: 80px;
+  }
+
+  .checkbox-container {
+            display: flex;
+            align-items: center; /* Align items vertically */
+            margin-bottom: 5px;
+  }
+  .checkbox-container input[type="checkbox"] {
+            margin-right: 5px;
+  }
+  #otherTheftInput {
+            display: none;
+            margin-top: 10px;
+  }
+
+  #addnotes {
+  width: 60%; /* Adjust width as needed */
+  height: auto; /* Height can be auto or any specific value */
+  min-height: 150px; /* Minimum height to show several lines at once */
+}
+
+</style>
+</head>
+
+<!-----------------MAIN CONTENT--------------->
+
+
+<body>
+
+<div class="header">
+  <h1>SOCker</h1>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<div class="main-container">
+    <div class="sidebar">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="manage.html">Manage Incident</a>
+        <a href="viewrep.html">View Reports</a>
+    </div>
+
+  <div class="content">
+    <h1>Create Phishing Campaign Incident</h1>
+    <h2>Ticket Details</h2>
+
+<form id="incidentForm">
+  <div class="form-group">
+    <label for="ticketCreation">Ticket Creation TimeStamp:</label>
+    <input type="text" id="ticketCreation" name="ticketCreation" readonly>
+  </div>
+  <div class="form-group">
+    <label for="ticketNumber">Number:</label>
+    <input type="text" id="ticketNumber" name="ticketNumber" readonly>
+  </div>
+  <div class="form-group">
+    <label for="assignedTo">Assigned To (Multiple Select):</label>
+    <select id="assignedTo" name="assignedTo">
+      <option value="user1">User 1</option>
+      <option value="user2">User 2</option>
+      <option value="user3">User 3</option>
+    </select>
+  </div>
+
+<h2>High Level Information</h2>
+  <div class="form-group">
+    <label for="classification">Incident Classification:</label>
+    <select id="classfic" name="classfic">
+      <option value="l1">L1 (Accounts Breached) </option>
+      <option value="l2">L2 (User/s Compromised) </option>
+      <option value="l3">L3 (Near Miss/Saved by MFA) </option>
+      <option value="l4">L4 (No impact) </option>
+    </select>
+  </div>
+
+<div class="form-group">
+
+    <label>Type of Phishing Campaign (select all that apply):</label>
+
+        <input type="checkbox" id="credentialTheft" name="phishingType" value="Credential Theft">
+        <label for="credentialTheft">Credential Theft</label>
+   
+        <input type="checkbox" id="creditCardTheft" name="phishingType" value="Credit Card Information Theft">
+        <label for="creditCardTheft">Credit Card Information Theft</label>
+   
+        <input type="checkbox" id="personalInfoTheft" name="phishingType" value="Personal Information Theft">
+        <label for="personalInfoTheft">Personal Information Theft</label>
+   
+        <input type="checkbox" id="otherTheft" name="phishingType" value="Other" onchange="toggleOtherInput()">
+        <label for="otherTheft">Other (mention)</label>
+        <input type="text" id="otherTheftInput" placeholder="Please specify">
+    
+</div>
+
+<div class="form-group">
+  <label for="usersReceivedEmail">How many users received the email?</label>
+  <input type="text" id="usersReceivedEmail" name="usersReceivedEmail" required>
+</div>
+
+<div class="form-group">
+  <label for="usersReadEmail">How many users read the email?</label>
+  <input type="text" id="usersReadEmail" name="usersReadEmail" required>
+</div>
+
+<div class="form-group">
+  <label for="usersReportedEmail">How many users reported the email?</label>
+  <input type="text" id="usersReportedEmail" name="usersReportedEmail" required>
+</div>
+
+<div class="form-group">
+  <label for="usersInternalForward">Users who forwarded the email internally? </label>
+  <input type="text" id="usersInternalForward" name="usersInternalForward" required>
+</div>
+
+<div class="form-group">
+  <label for="usersClicked">How many users clicked on the URL? </label>
+  <input type="text" id="usersClicked" name="usersClicked" required>
+</div>
+
+<div class="form-group">
+  <label for="usersCompromised">Number of Users compromised.</label>
+  <input type="text" id="usersCompromised" name="usersCompromised" required>
+</div>
+
+<div class="form-group">
+  <label for="usersBreached">Number of User accounts breached</label>
+  <input type="text" id="usersBreached" name="usersBreached" required>
+</div>
+
+<h2>General Information</h2>
+
+<div class="form-group">
+  <label for="sendermail">Sender email address/s of the mail/s</label>
+  <input type="text" id="sendermail" name="sendermail" required>
+</div>
+
+<div class="form-group">
+  <label for="mailsubject">Subject/s of the email</label>
+  <input type="text" id="mailsubject" name="mailsubject" required>
+</div>
+
+<div class="form-group">
+  <label for="campaigntype">Incident Classification:</label>
+  <select id="campaigntype" name="campaigntype">
+    <option value="commodity">Commodity </option>
+    <option value="targeted">Targeted </option>
+    <option value="bec">BEC </option>
+  </select>
+</div>
+
+<h2>Technical Information</h2>
+
+
+<div class="form-group">
+  <label for="urlsDomains">URLs/domains associated:</label>
+  <input type="text" id="urlsDomains" name="urlsDomains">
+</div>
+
+<div class="form-group">
+  <label for="originatingIP">X-originating IP address:</label>
+  <input type="text" id="originatingIP" name="originatingIP">
+</div>
+
+<div class="form-group">
+  <label for="associatedDomains">Domain/s associated:</label>
+  <input type="text" id="associatedDomains" name="associatedDomains">
+</div>
+
+<div class="form-group">
+  <label for="senderEmails">Sender email address/s:</label>
+  <input type="email" id="senderEmails" name="senderEmails">
+</div>
+
+<div class="form-group">
+  <label for="attachmentHash">Attachment File hash:</label>
+  <input type="text" id="attachmentHash" name="attachmentHash">
+</div>
+
+<div class="form-group">
+  <label for="replyToAddress">Reply-to address:</label>
+  <input type="email" id="replyToAddress" name="replyToAddress">
+</div>
+
+<div class="form-group">
+  <label for="spfResults">SPF results:</label>
+  <input type="text" id="spfResults" name="spfResults">
+</div>
+
+<div class="form-group">
+  <label for="dmarcResults">DMARC results:</label>
+  <input type="text" id="dmarcResults" name="dmarcResults">
+</div>
+
+<h2>Remediation Steps Taken</h2>
+
+<div class="form-group">
+  <label>Remediation steps taken (check all that apply):</label>
+  <div>
+      <input type="checkbox" id="emailsDeleted" name="remediationSteps" value="Emails Deleted">
+      <label for="emailsDeleted">Emails deleted</label>
+  </div>
+  <div>
+      <input type="checkbox" id="senderBlocked" name="remediationSteps" value="Sender Blocked">
+      <label for="senderBlocked">Sender blocked</label>
+  </div>
+  <div>
+      <input type="checkbox" id="ipBlocked" name="remediationSteps" value="IP Blocked">
+      <label for="ipBlocked">IP blocked</label>
+  </div>
+  <div>
+      <input type="checkbox" id="urlDomainBlocked" name="remediationSteps" value="URL/Domain Blocked">
+      <label for="urlDomainBlocked">URL/Domain blocked</label>
+  </div>
+  <div>
+      <input type="checkbox" id="attachmentHashBlocked" name="remediationSteps" value="Attachment Hash Blocked">
+      <label for="attachmentHashBlocked">Attachment hash blocked</label>
+  </div>
+  <div>
+      <input type="checkbox" id="passwordResetSessionKill" name="remediationSteps" value="Password Reset and Session Kill">
+      <label for="passwordResetSessionKill">Password reset and session kill</label>
+  </div>
+</div>
+
+<h2>Artifacts</h2>
+<h4></h4>
+<div class="form-group">
+  <label for="attachmentsUpload">Email Copy & Email Attachments(if any):</label>
+  <input type="file" id="attachmentsUpload" name="attachmentsUpload" multiple>
+</div>
+
+<h2>Metrics</h2>
+
+<div class="form-group">
+  <label for="firstEmailDelivered">Timestamp of first email delivered:</label>
+  <input type="text" id="firstEmailDelivered" name="firstEmailDelivered" required>
+</div>
+
+<div class="form-group">
+  <label for="emailDetected">Timestamp of phishing email detected:</label>
+  <input type="text" id="emailDetected" name="emailDetected" required>
+</div>
+
+<div class="form-group">
+  <label for="remediationCompleted">Timestamp of remediation steps completed:</label>
+  <input type="text" id="remediationCompleted" name="remediationCompleted" required>
+</div>
+
+<h2>Additional Notes</h2>
+<div class="form-group">
+  <label for="addnotes"></label>
+  <textarea id="addnotes" name="addnotes" required rows="10" cols="50"></textarea>
+</div>
+
+
+<input type="submit" value="Submit">
+</form>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-----------------LOGOUT FUNCTION--------------->
+
+<script>
+    function logout() {
+  console.log('Logout function called');
+  window.history.replaceState(null, null, window.location.href);
+  window.history.pushState({loggedOut: true}, null, "login.html");
+
+  window.onpopstate = function(event) {
+    console.log('Back navigation attempted after logout');
+    if(event.state && event.state.loggedOut) {
+      window.location.href = 'login.html';
+    }
+  };
+
+  window.location.href = 'login.html';
+}
+</script>
+
+
+<script>
+  window.onload = function() {
+    var now = new Date().toLocaleString();
+    document.getElementById('ticketCreation').value = now;
+    document.getElementById('ticketNumber').value = Math.floor(Math.random() * 1000) + 1;
+  };
+</script>
+
+<script>
+  function toggleOtherInput() {
+      var otherInput = document.getElementById("otherTheftInput");
+      if(document.getElementById("otherTheft").checked) {
+          otherInput.style.display = "block";
+      } else {
+          otherInput.style.display = "none";
+      }
+  }
+</script>
+
+
+</script>
+
+
+</body>
+</html>
